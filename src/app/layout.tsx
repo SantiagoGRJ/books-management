@@ -23,14 +23,7 @@ export default function RootLayout({
       <body
         className={`${montserrat.className} antialiased`}
       >
-        <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
-          <div className="w-full flex-none md:w-64">
-            <SideNav/>
-          </div>
-          <div className="flex-grow p-6 md:overflow-y-auto md:px-12">
-          {children}
-          </div>
-        </div>
+        {children}
       </body>
     </html>
   );

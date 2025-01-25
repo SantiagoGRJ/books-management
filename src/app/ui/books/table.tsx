@@ -1,5 +1,5 @@
 import { fetchBooks } from "@/lib/data";
-import { UpdateBook } from "./buttons";
+import { DeleteBook, UpdateBook } from "./buttons";
 
 
 export default async function BooksTable() {
@@ -40,8 +40,9 @@ export default async function BooksTable() {
               <td className="whitespace-nowrap px-3 py-3">{book.author}</td>
               <td className="whitespace-nowrap px-3 py-3">{book.price}</td>
               <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                <div className="flex justify-end gap-3">
+                <div className="flex justify-start gap-3">
                     <UpdateBook id={book.id} />
+                    <DeleteBook id={book.id} />
                 </div>
               </td>
             </tr>

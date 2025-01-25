@@ -1,10 +1,16 @@
+'use client'
 import { Book } from "@/lib/definitions";
 import Link from "next/link";
 import Button from "../button";
+import { State, updateBook } from "@/lib/actions";
+import { useActionState } from "react";
 
-export default async function EditBookForm({ book }: { book: Book }) {
+export default  function EditBookForm({ book }: { book: Book }) {
+  const initialState : State = {message:null, errors:{}}
+  const updateInvoiceWithId = updateBook.bind(null,book.id)
+  const [state,formAction] = useActionState(updateInvoiceWithId,initialState)
   return (
-    <form action="">
+    <form action={formAction}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         <div className="mb-4">
           <label htmlFor="" className="mb-2 block text-sm font-medium">

@@ -1,3 +1,4 @@
+import { deleteBook } from "@/lib/actions";
 import Link from "next/link";
 
 
@@ -18,6 +19,21 @@ export function UpdateBook({id}:{id:number}){
         >
         Update
         </Link>
+    )
+}
+
+export function DeleteBook({id}:{id:number}){
+    const deleteBookWithId = deleteBook.bind(null,id)
+
+    return(
+        <form action={deleteBookWithId}>
+            <button
+            type="submit"
+            className="rounded-md border p-2 hover:bg-gray-100"
+            >
+                Delete
+            </button>
+        </form>
     )
 }
 
