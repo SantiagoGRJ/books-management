@@ -11,4 +11,13 @@ export function CreateBook(){
         </Link>
     )
 }
+export function UpdateBook({id}:{id:number}){
+    return(
+        <Link href={`/books/${id}/edit`}
+        className="rounded-md border p-2 hover:bg-gray-100"
+        >
+        Update
+        </Link>
+    )
+}
 
