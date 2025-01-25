@@ -1,9 +1,9 @@
 import { fetchBooks } from "@/lib/data";
-import { CreateBook } from "./buttons";
+
 
 export default async function BooksTable() {
   const data = await fetchBooks();
-  console.log(data);
+  
 
   return (
     <table className="hidden min-w-full text-gray-900 md:table ">
@@ -40,7 +40,7 @@ export default async function BooksTable() {
               <td className="whitespace-nowrap px-3 py-3">{book.price}</td>
               <td className="whitespace-nowrap py-3 pl-6 pr-3">
                 <div className="flex justify-end gap-3">
-                    <CreateBook/>
+                    
                 </div>
               </td>
             </tr>

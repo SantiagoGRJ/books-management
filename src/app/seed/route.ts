@@ -1,5 +1,6 @@
+import { books } from "@/lib/placeholder-data";
 import { db } from "@vercel/postgres";
-import { books } from "app/lib/placeholder-data";
+
 
 
 
@@ -20,7 +21,7 @@ async function seedBooks() {
     const insertedBook = await Promise.all(
         books.map((book) => client.sql`
     INSERT INTO books (id,title,description,author,price)
-    VALUES (${book.id},${book.title},${book.descripcion},${book.author},${book.price})
+    VALUES (${book.id},${book.title},${book.description},${book.author},${book.price})
     ON CONFLICT (id) DO NOTHING;
     `)
     )

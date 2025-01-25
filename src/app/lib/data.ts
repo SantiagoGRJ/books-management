@@ -6,7 +6,7 @@ import { Book } from "./definitions";
 export async function fetchBooks(){
 
     try{
-        const data = await sql<Book>`SELECT * FROM books`
+        const data = await sql<Book>`SELECT * FROM books ORDER BY price DESC`
         
         return data.rows
     }catch(error){
