@@ -36,7 +36,7 @@ export type State = {
 
 
 
-export async function createBook(prevForm: FormData, formData: FormData) {
+export async function createBook(prevForm: FormData | State, formData: FormData) {
     const validedFields = FormSchema.safeParse({
         id: formData.get('id'),
         title: formData.get('title'),
