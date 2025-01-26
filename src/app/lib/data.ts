@@ -16,7 +16,7 @@ export async function fetchBooks() {
     }
 }
 
-export async function fetchBookGetById(id:string) {
+export async function fetchBookGetById(id:number) {
 
     try {
         const data = await sql<Book>`
