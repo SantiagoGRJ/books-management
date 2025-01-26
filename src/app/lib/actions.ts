@@ -1,6 +1,6 @@
 "use server"
 import { sql } from '@vercel/postgres'
-import { error } from 'console'
+
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
@@ -124,8 +124,7 @@ export async function deleteBook(id: number) {
         DELETE FROM books WHERE id = ${id}`
         revalidatePath('/books')
     }catch(e){
-        return {
-            message:`Database Error: Failed Delete Book ${e}`
-        }
+        console.log(`Database Error: `,e);
+        
     }
 }
