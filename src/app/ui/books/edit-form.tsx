@@ -28,7 +28,11 @@ export default  function EditBookForm({ book }: { book: Book }) {
             </div>
           </div>
         </div>
-        <div className=""></div>
+        <div className="error-custom">
+          {state.errors?.title?.map((error,i)=> (
+            <p key={i} className="mt-2 text-red-500 text-sm " >{error}</p>
+          ))}
+        </div>
         <div className="mb-4">
           <label htmlFor="" className="mb-2 block text-sm font-medium">
             Description
@@ -44,6 +48,11 @@ export default  function EditBookForm({ book }: { book: Book }) {
               />
             </div>
           </div>
+        </div>
+        <div className="error-custom">
+          {state.errors?.description?.map((error,i) => (
+            <p key={i} className="text-red-500 text-sm mt-2">{error}</p>
+          ))}
         </div>
 
         <div className="mb-4">
@@ -62,6 +71,11 @@ export default  function EditBookForm({ book }: { book: Book }) {
                 </div>
             </div>
         </div>
+        <div className="error-custom">
+          {state.errors?.author?.map((error,i) => (
+            <p key={i} className="text-sm mt-2 text-red-500">{error}</p>
+          ))}
+        </div>
 
         <div className="mb-4">
             <label htmlFor="" className="block mb-2 text-sm font-medium">
@@ -78,6 +92,13 @@ export default  function EditBookForm({ book }: { book: Book }) {
                     />
                 </div>
             </div>
+        </div>
+        <div className="error-custom">
+          {state.errors?.author?.map((error,i)=>(
+            <p key={i} className="text-red-500 text-sm mt-2">
+              {error}
+            </p>
+          ))}
         </div>
         <div className="mt-6 flex justify-end gap-4">
             <Link href="/books"
