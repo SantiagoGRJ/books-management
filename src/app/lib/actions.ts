@@ -44,7 +44,7 @@ export async function createBook(prevForm: FormData | State, formData: FormData)
         description: formData.get('description'),
         price: formData.get('price')
     })
-    console.log(validedFields);
+   
 
 
     if (!validedFields.success) {
@@ -124,7 +124,7 @@ export async function deleteBook(id: number) {
         DELETE FROM books WHERE id = ${id}`
         revalidatePath('/books')
     }catch(e){
-        console.log(`Database Error: `,e);
-        
+       
+       throw new Error('Database Error: Fail Delete Book') 
     }
 }
