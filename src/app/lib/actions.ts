@@ -123,8 +123,8 @@ export async function deleteBook(id: number) {
         await sql`
         DELETE FROM books WHERE id = ${id}`
         revalidatePath('/books')
-    }catch(e){
+    }catch(e : any){
        
-       throw new Error('Database Error: Fail Delete Book') 
+       throw new Error('Database Error: Fail Delete Book',e) 
     }
 }
