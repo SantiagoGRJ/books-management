@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import { montserrat } from "./ui/fonts";
-import SideNav from "./ui/books/sidenav";
+
 
 
 

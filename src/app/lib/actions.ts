@@ -107,7 +107,7 @@ export async function updateBook(id: number, prevState: State, formData: FormDat
     } catch (error) {
 
         return {
-            message: 'Databa Failed: Error Update Book'
+            message: `Databa Failed: Error Update Book. ${error}`
         }
 
     }
@@ -125,7 +125,7 @@ export async function deleteBook(id: number) {
         revalidatePath('/books')
     }catch(e){
         return {
-            message:'Database Failed: Error Delete Book.'
+            message:`Database Error: Failed Delete Book ${e}`
         }
     }
 }
