@@ -31,7 +31,7 @@ export type State = {
         author?: string[]
         price?: string[]
     }
-    message?: string | null
+    message: string 
 }
 
 

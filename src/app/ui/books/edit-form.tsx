@@ -6,7 +6,7 @@ import { State, updateBook } from "@/lib/actions";
 import { useActionState } from "react";
 
 export default  function EditBookForm({ book }: { book: Book }) {
-  const initialState : State = {message:null, errors:{}}
+  const initialState : State = {message:"", errors:{}}
   const updateInvoiceWithId = updateBook.bind(null,book.id)
   const [state,formAction] = useActionState(updateInvoiceWithId,initialState)
   return (

@@ -5,7 +5,7 @@ import { createBook, State } from "@/lib/actions";
 import { useActionState } from "react";
 
 export default function CreateForm() {
-  const initialError: State = { message: null, errors: {} };
+  const initialError: State = { message: "", errors: {} };
   const [state, formAction] = useActionState(
     createBook,
     initialError
