@@ -5,11 +5,21 @@ import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
 const FormSchema = z.object({
-    id: z.coerce.number(),
-    title: z.string(),
-    author: z.string(),
-    descrition: z.string(),
-    price: z.coerce.number()
+    id: z.coerce.number({
+        invalid_type_error:'Must be a Number'
+    }).gt(0,{
+        message:'Please Enter an mount greater than $0'
+    }),
+    title: z.string().min(3,{message:'Min 3 Letter'}),
+    author: z.string({
+        invalid_type_error:'Must be a text Value'
+    }).min(3,{message:'Min 3 Letter'}),
+    description: z.string({
+        invalid_type_error:'Must be a text Value'
+    }).min(3,{message:'Min 3 Letter'}),
+    price: z.coerce.number({
+        invalid_type_error:'Must be a Number'
+    }).gt(0,{message:'Please Enter an mount greater than $0'})
 })
 
 export type State = {
@@ -20,27 +30,45 @@ export type State = {
         author?: string[]
         price?: string[]
     }
-    message: string | null
+    message?: string | null
 }
 
 
 
-export async function createBook(formData: FormData) {
-    const { id, title, author, descrition, price } = FormSchema.parse({
+export async function createBook(prevForm:FormData, formData: FormData) {
+    const validedFields = FormSchema.safeParse({
         id: formData.get('id'),
         title: formData.get('title'),
         author: formData.get('author'),
-        descrition: formData.get('description'),
+        description: formData.get('description'),
         price: formData.get('price')
     })
+    console.log(validedFields);
+    
+    
+    if(!validedFields.success){
+        return {
+            errors: validedFields.error.flatten().fieldErrors,
+            message:'Missing Fields. Failed to Create Invoice.'
+        }
+    }
+
+    const {id, title, author, description, price} = validedFields.data
 
     const priceInCents = price * 100
-    console.log(formData);
+    
+    try{
+        await sql`
+        INSERT INTO books (id,title,author,description,price) 
+        VALUES (${id},${title},${author},${description},${priceInCents})
+        `
 
-    await sql`
-    INSERT INTO books (id,title,author,description,price) 
-    VALUES (${id},${title},${author},${descrition},${priceInCents})
-    `
+    }catch(e){
+        return {
+            message:'Database Error: Failed to Create Book '+e,
+        }
+    }
+   
 
     revalidatePath('/books')
     redirect('/books')
@@ -52,7 +80,7 @@ export async function updateBook( id: number,
     prevState: State,
     formData: FormData) {
 
-    const { title, author, descrition, price } = UpdateBook.parse({
+    const { title, author, description, price } = UpdateBook.parse({
         title: formData.get('title'),
         author: formData.get('author'),
         descrition: formData.get('description'),
@@ -64,7 +92,7 @@ export async function updateBook( id: number,
     try {
         await sql`
     UPDATE books
-    SET title = ${title}, author = ${author}, description=${descrition}, price = ${priceInCents}
+    SET title = ${title}, author = ${author}, description=${description}, price = ${priceInCents}
     WHERE id = ${id}
     `
     } catch (error) {
