@@ -1,4 +1,4 @@
-import { fetchBooks, fetchFilteredBooks } from "@/lib/data";
+import {  fetchFilteredBooks } from "@/lib/data";
 import { DeleteBook, UpdateBook } from "./buttons";
 
 export default async function BooksTable({
