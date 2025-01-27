@@ -3,11 +3,12 @@
 
 
 export type Book = {
-    id: number
+    id:  string
     title: string
     description: string
     author: string
-    price: number
+    price: number 
 }
+export type placeholderBook = Omit<Book,'id'>
 
 

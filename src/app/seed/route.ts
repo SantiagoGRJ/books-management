@@ -10,7 +10,7 @@ async function seedBooks() {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`
     await client.sql`
       CREATE TABLE IF NOT EXISTS books (
-      id INT PRIMARY KEY,
+      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
       title VARCHAR(255) NOT NULL,
       description VARCHAR(255) NOT NULL,
       author TEXT NOT NULL,

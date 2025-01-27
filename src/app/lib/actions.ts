@@ -6,11 +6,7 @@ import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
 const FormSchema = z.object({
-    id: z.coerce.number({
-        invalid_type_error: 'Must be a Number'
-    }).gt(0, {
-        message: 'Please Enter an mount greater than $0'
-    }),
+    id: z.string(),
     title: z.string().min(3, { message: 'Min 3 Letter' }),
     author: z.string({
         invalid_type_error: 'Must be a text Value'
@@ -25,7 +21,7 @@ const FormSchema = z.object({
 
 export type State = {
     errors?: {
-        id?: string[]
+       
         title?: string[]
         description?: string[]
         author?: string[]
@@ -38,7 +34,6 @@ export type State = {
 
 export async function createBook(prevForm: FormData | State, formData: FormData) {
     const validedFields = FormSchema.safeParse({
-        id: formData.get('id'),
         title: formData.get('title'),
         author: formData.get('author'),
         description: formData.get('description'),
@@ -54,14 +49,14 @@ export async function createBook(prevForm: FormData | State, formData: FormData)
         }
     }
 
-    const { id, title, author, description, price } = validedFields.data
+    const {  title, author, description, price } = validedFields.data
 
     const priceInCents = price * 100
 
     try {
         await sql`
-        INSERT INTO books (id,title,author,description,price) 
-        VALUES (${id},${title},${author},${description},${priceInCents})
+        INSERT INTO books (title,author,description,price) 
+        VALUES (${title},${author},${description},${priceInCents})
         `
 
     } catch (e) {
@@ -77,7 +72,7 @@ export async function createBook(prevForm: FormData | State, formData: FormData)
 
 const UpdateBook = FormSchema.omit({ id: true })
 
-export async function updateBook(id: number, prevState: State, formData: FormData) {
+export async function updateBook(id: string, prevState: State, formData: FormData) {
 
     const validatedFields = UpdateBook.safeParse({
         title: formData.get('title'),

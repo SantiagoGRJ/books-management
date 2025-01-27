@@ -16,7 +16,7 @@ export async function fetchBooks() {
     }
 }
 
-export async function fetchBookGetById(id: number) {
+export async function fetchBookGetById(id: string) {
 
     try {
         const data = await sql<Book>`
@@ -71,7 +71,7 @@ export async function fetchFilteredBooks(query: string,currentPage:number) {
         return books.rows
     } catch (e) {
         console.error('Database Error: ', e);
-        throw new Error('Failed to fetch Invoices.')
+        throw new Error('Failed to fetch Book.')
 
     }
 }

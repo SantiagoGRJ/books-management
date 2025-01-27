@@ -30,13 +30,7 @@ export default function CreateForm() {
             </div>
           </div>
         </div>
-        <div id="error-custom" className="">
-          {state?.errors?.id?.map((error, i) => (
-            <p key={i} className="mt-2 text-red-500 text-sm">
-              {error}
-            </p>
-          ))}
-        </div>
+        
         <div className="mb-4">
           <label htmlFor="title" className="mb-2 block text-sm font-medium">
             Title
