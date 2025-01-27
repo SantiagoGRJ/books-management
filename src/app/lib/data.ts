@@ -50,8 +50,8 @@ export async function fetchFilteredBooks(query: string,currentPage:number) {
     const offeset =  (currentPage -1) * ITEMS_FOR_PAGE
     console.log(offeset);
     
-try {
-        const data = await sql`
+    try {
+        const books = await sql`
         SELECT 
         books.id,
         books.title,
@@ -68,11 +68,7 @@ try {
         LIMIT ${ITEMS_FOR_PAGE} OFFSET ${currentPage}
         
         `
-        const books = data.rows.map((data)=>({
-            ...data,
-            price: data.price / 100
-        }))
-        return books
+        return books.rows
     } catch (e) {
         console.error('Database Error: ', e);
         throw new Error('Failed to fetch Book.')
