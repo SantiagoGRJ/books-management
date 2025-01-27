@@ -2,8 +2,8 @@ import { fetchBooks, fetchFilteredBooks } from "@/lib/data";
 import { DeleteBook, UpdateBook } from "./buttons";
 
 
-export default async function BooksTable({query}:{query:string}) {
-  const data = await fetchFilteredBooks(query);
+export default async function BooksTable({query,currentPage}:{query:string,currentPage:number}) {
+  const data = await fetchFilteredBooks(query,currentPage);
   
 
   return (
