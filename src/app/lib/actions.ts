@@ -21,7 +21,6 @@ const FormSchema = z.object({
 
 export type State = {
     errors?: {
-       
         title?: string[]
         description?: string[]
         author?: string[]
