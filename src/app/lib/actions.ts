@@ -29,18 +29,20 @@ export type State = {
     message: string 
 }
 
-
+const CreateBook = FormSchema.omit({id:true})
 
 export async function createBook(prevForm: FormData | State, formData: FormData) {
-    const validedFields = FormSchema.safeParse({
+    const validedFields = CreateBook.safeParse({
         title: formData.get('title'),
         author: formData.get('author'),
         description: formData.get('description'),
         price: formData.get('price')
     })
    
-
-
+   
+    
+    
+    
     if (!validedFields.success) {
         return {
             errors: validedFields.error.flatten().fieldErrors,
@@ -51,7 +53,8 @@ export async function createBook(prevForm: FormData | State, formData: FormData)
     const {  title, author, description, price } = validedFields.data
 
     const priceInCents = price * 100
-
+    
+    
     try {
         await sql`
         INSERT INTO books (title,author,description,price) 
@@ -59,6 +62,8 @@ export async function createBook(prevForm: FormData | State, formData: FormData)
         `
 
     } catch (e) {
+        
+        
         return {
             message: 'Database Error: Failed to Create Book ' + e,
         }
