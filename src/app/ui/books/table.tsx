@@ -1,5 +1,6 @@
 import {  fetchFilteredBooks } from "@/lib/data";
 import { DeleteBook, UpdateBook } from "./buttons";
+import { formatCurrency } from "@/lib/utils";
 
 export default async function BooksTable({
   query,
@@ -42,7 +43,7 @@ export default async function BooksTable({
               <td className="px-2 py-3">{book.title}</td>
               <td className=" px-2 py-3">{book.description}</td>
               <td className=" px-2 py-3">{book.author}</td>
-              <td className="whitespace-nowrap px-3 py-3">{book.price}</td>
+              <td className="whitespace-nowrap px-3 py-3">{formatCurrency(book.price)}</td>
               <td className="whitespace-nowrap py-3 pl-6 pr-3">
                 <div className="flex flex-wrap justify-start gap-3">
                   <UpdateBook id={book.id} />
